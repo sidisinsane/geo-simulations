@@ -1,0 +1,38 @@
+[
+    {
+        "locality": "embl-heidelberg",
+        "country_code": "de",
+        "lat": 49.3845105,
+        "lon": 8.7074158
+    },
+    {
+        "locality": "embl-barcelona",
+        "country_code": "es",
+        "lat": 41.3853788,
+        "lon": 2.1914714
+    },
+    {
+        "locality": "embl-hamburg",
+        "country_code": "de",
+        "lat": 53.5730443,
+        "lon": 9.8784148
+    },
+    {
+        "locality": "embl-grenoble",
+        "country_code": "fr",
+        "lat": 45.2074439,
+        "lon": 5.6899813
+    },
+    {
+        "locality": "embl-hinxton",
+        "country_code": "gb",
+        "lat": 52.0797785,
+        "lon": 0.1839495
+    },
+    {
+        "locality": "embl-rome",
+        "country_code": "it",
+        "lat": 42.085073,
+        "lon": 12.5914159
+    }
+]
