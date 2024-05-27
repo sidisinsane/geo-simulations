@@ -58,9 +58,7 @@ class GeoTiffConvert(GeoTiffBase):
         log.info(f"Converting {len(geotiff_filepaths)} GeoTIFF files.")
 
         for geotiff_filepath in geotiff_filepaths:
-            png_filepath = os.path.join(
-                self.pdm_dirpath, f"{pathlib.Path(geotiff_filepath).stem}.png"
-            )
+            png_filepath = os.path.join(self.pdm_dirpath, f"{pathlib.Path(geotiff_filepath).stem}.png")
             self.convert(
                 geotiff_filepath,
                 png_filepath,
@@ -115,9 +113,7 @@ class GeoTiffConvert(GeoTiffBase):
                 data_max = numpy.nanmax(data)
 
                 if data_max != data_min:
-                    data_normalized = (
-                        (data - data_min) / (data_max - data_min) * 255
-                    ).astype(numpy.uint8)
+                    data_normalized = ((data - data_min) / (data_max - data_min) * 255).astype(numpy.uint8)
                 else:
                     data_normalized = numpy.zeros_like(data, dtype=numpy.uint8)
 

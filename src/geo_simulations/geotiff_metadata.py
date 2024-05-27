@@ -60,10 +60,7 @@ class GeoTiffMetadata(GeoTiffBase):
         for key, info in metadata.items():
             bbox = info.get("bbox", {})
             if all(k in bbox for k in ["lat_min", "lat_max", "lon_min", "lon_max"]):
-                if (
-                    bbox["lat_min"] <= lat <= bbox["lat_max"]
-                    and bbox["lon_min"] <= lon <= bbox["lon_max"]
-                ):
+                if bbox["lat_min"] <= lat <= bbox["lat_max"] and bbox["lon_min"] <= lon <= bbox["lon_max"]:
                     return metadata[key]
         return None
 
@@ -84,18 +81,14 @@ class GeoTiffMetadata(GeoTiffBase):
             key = os.path.splitext(os.path.basename(geotiff_filepath))[0]
             metadata = self.metadata_extract(geotiff_filepath)
             if metadata.get("error"):
-                log.error(
-                    f"Error extracting metadata for {geotiff_filepath}: {metadata['error']}"
-                )
+                log.error(f"Error extracting metadata for {geotiff_filepath}: {metadata['error']}")
                 continue
             current_metadata[key] = metadata
             log.info(f"Extracted metadata from {geotiff_filepath}")
 
         # Write updated metadata back to file once
         with open(self.geotiff_metadata_filepath, "w", encoding="utf-8") as file:
-            json.dump(
-                current_metadata, file, ensure_ascii=False, indent=4, sort_keys=True
-            )
+            json.dump(current_metadata, file, ensure_ascii=False, indent=4, sort_keys=True)
             log.info(f"Metadata written to {self.geotiff_metadata_filepath}")
 
         # Update the in-memory metadata

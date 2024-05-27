@@ -45,9 +45,7 @@ class ZombieOutbreak(GeoTiffMetadata):
     those settlements will be contaminated ahead of the main Zombie wave.
     """
 
-    def __init__(
-        self, country_code: str, locality: str, lat: float, lon: float, width: int = 400
-    ) -> None:
+    def __init__(self, country_code: str, locality: str, lat: float, lon: float, width: int = 400) -> None:
         """
         Initialize the ZombieOutbreak class with the given parameters.
 
@@ -163,9 +161,7 @@ class ZombieOutbreak(GeoTiffMetadata):
             metadata_match = self.metadata_match(self.lat, self.lon)
             # print(json.dumps(metadata_match, indent=4))
             geotiff_filepath = metadata_match["file"]
-            self.pdm_filepath = os.path.join(
-                self.pdm_dirpath, f"{pathlib.Path(geotiff_filepath).stem}.png"
-            )
+            self.pdm_filepath = os.path.join(self.pdm_dirpath, f"{pathlib.Path(geotiff_filepath).stem}.png")
         except (FileNotFoundError, AttributeError) as e:
             log.error(f"File not found: {e}")
 
@@ -183,9 +179,7 @@ class ZombieOutbreak(GeoTiffMetadata):
             f"zombie-outbreak-{self.country_code}-{self.locality}.gif",
         )
 
-    def set_dispersion_rates(
-        self, rates: list[float] = DEFAULT_DISPERSION_RATES
-    ) -> None:
+    def set_dispersion_rates(self, rates: list[float] = DEFAULT_DISPERSION_RATES) -> None:
         """
         Set the dispersion rates for the SIR populations.
 
@@ -201,9 +195,7 @@ class ZombieOutbreak(GeoTiffMetadata):
 
         The dispersion kernel models how individuals spread to neighboring positions.
         """
-        self.dispersion_kernel: numpy.typing.NDArray[Any] = numpy.array(
-            [[0.5, 1, 0.5], [1, -6, 1], [0.5, 1, 0.5]]
-        )
+        self.dispersion_kernel: numpy.typing.NDArray[Any] = numpy.array([[0.5, 1, 0.5], [1, -6, 1], [0.5, 1, 0.5]])
 
     def set_hours_per_second(self, hours: int = DEFAULT_HOURS_PER_SECOND) -> None:
         """
@@ -355,9 +347,7 @@ class ZombieOutbreak(GeoTiffMetadata):
                 # by the dispersion rate.
                 # `strict=True` ensures equal length of sir and dispersion_rates.
                 convolve(population, self.dispersion_kernel, cval=0) * dispersion_rate
-                for (population, dispersion_rate) in zip(
-                    sir, self.dispersion_rates, strict=True
-                )
+                for (population, dispersion_rate) in zip(sir, self.dispersion_rates, strict=True)
             ]
         )
 
@@ -397,9 +387,7 @@ class ZombieOutbreak(GeoTiffMetadata):
         # Coefficients to accentuate the SIR populations for visualization.
         # These coefficients determine how strongly each population affects
         # the RGB channels.
-        coefficients: numpy.ndarray[Any, numpy.dtype[Any]] = numpy.array(
-            [2, 25, 25]
-        ).reshape((3, 1, 1))
+        coefficients: numpy.ndarray[Any, numpy.dtype[Any]] = numpy.array([2, 25, 25]).reshape((3, 1, 1))
 
         # Accentuate the SIR populations for visualization by multiplying with the
         # coefficients and scaling by 255.
@@ -531,9 +519,7 @@ class ZombieOutbreak(GeoTiffMetadata):
 
 
 if __name__ == "__main__":
-    data: list[dict[str, Any]] = load_json(
-        os.path.join(os.getcwd(), "assets/data", "zombie-outbreak-localities.json")
-    )
+    data: list[dict[str, Any]] = load_json(os.path.join(os.getcwd(), "assets/data", "zombie-outbreak-localities.json"))
     example_data = {
         "locality": "canberra",
         "country_code": "au",
